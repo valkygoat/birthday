@@ -1030,20 +1030,27 @@ const music = document.getElementById('bg-music');
 music.volume = 0.8;
 let isPlaying = false;
 
-window.addEventListener('load', () => {
+/* Autoplay removed - music plays only on heart click */
+
+function playMusic() {
   music.play().then(() => {
     isPlaying = true;
     document.getElementById('music-btn').textContent = '🔇';
-  }).catch(() => {
-    document.addEventListener('click', () => {
-      music.play().then(() => { isPlaying = true; document.getElementById('music-btn').textContent = '🔇'; });
-    }, {once: true});
-  });
-});
+  }).catch(e => console.log('Music play failed:', e));
+}
 
 function toggleMusic() {
-  if (isPlaying) { music.pause(); isPlaying = false; document.getElementById('music-btn').textContent = '🔊'; }
-  else { music.play(); isPlaying = true; document.getElementById('music-btn').textContent = '🔇'; }
+  if (isPlaying) { 
+    music.pause(); 
+    isPlaying = false; 
+    document.getElementById('music-btn').textContent = '🔊'; 
+  }
+  else { 
+    music.play().then(() => {
+      isPlaying = true; 
+      document.getElementById('music-btn').textContent = '🔇';
+    });
+  }
 }
 
 /* ── Particle helpers ── */
@@ -1146,6 +1153,9 @@ function megaCelebrate() {
 }
 
 function openEnvelope() {
+  // Play music on heart click
+  playMusic();
+  
   console.log('Envelope button clicked!');
   try {
     const wrapper = document.getElementById('envelope-wrapper');
