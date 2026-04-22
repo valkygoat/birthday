@@ -1208,6 +1208,7 @@ let mainCard = document.getElementById('mainCard');
 
 function showSurprise() {
   // Hide mainCard AND all teddy photos immediately
+  mainCard.classList.remove('visible');
   mainCard.style.opacity = '0';
   mainCard.style.pointerEvents = 'none';
   document.querySelectorAll('.photo-teddy-inside, .photo-teddy-floating').forEach(el => {
@@ -1248,20 +1249,9 @@ function showSurprise() {
 
   const vid = document.getElementById('surprise-video');
   vid.addEventListener('ended', () => {
-    // Show teddy images after video ends
-    document.querySelectorAll('.photo-teddy-inside, .photo-teddy-floating').forEach(el => {
-      el.style.opacity = '';
-      el.style.pointerEvents = '';
-    });
-    
     document.getElementById('modal').classList.remove('show');
     vid.pause(); vid.currentTime = 0;
     showBouquetReveal();
-    setTimeout(() => {
-      mainCard.style.opacity = '';
-      mainCard.style.pointerEvents = '';
-      mainCard.classList.remove('fade-out', 'fade-in');
-    }, 500);
   }, {once: true});
 
   createFireworkBurst(8,'fireworks');
@@ -1335,6 +1325,16 @@ function showBouquetReveal() {
   setTimeout(() => {
     // Start shake while overlay is still fading so it feels energetic
     const card = document.getElementById('mainCard');
+
+    // Re-show main card and all teddy photos only after the reveal ends
+    card.style.opacity = '';
+    card.style.pointerEvents = '';
+    card.classList.add('visible');
+    document.querySelectorAll('.photo-teddy-inside, .photo-teddy-floating').forEach(el => {
+      el.style.opacity = '';
+      el.style.pointerEvents = '';
+    });
+
     card.classList.add('mega-party');
     createFireworkBurst(12,'fireworks');
     createExtraFireworkBurst(9,'extraFireworks');
