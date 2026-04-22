@@ -166,7 +166,21 @@ transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 5s ease-out;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   animation:bounce 1s ease 4s infinite;
 }
-.gift-message{font-size:clamp(13px,3.5vw,16px);line-height:1.5;animation:fadeInUp .8s ease 5s forwards;opacity:0;transform:translateY(20px)}
+.gift-message{
+  font-size:clamp(13px,3.5vw,15px);
+  line-height:1.6;
+  color: #555;
+  font-style: italic;
+  animation:fadeInUp .8s ease 5s forwards;
+  opacity:0;
+  transform:translateY(20px);
+  white-space: pre-line;
+}
+.gift-poem {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #e91e63;
+}
 
 @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}
 @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
@@ -526,13 +540,19 @@ h1{
 .brf.brf-bye{opacity:0;transform:scale(.85) translateY(-140px);transition:opacity 1.3s ease,transform 1.3s ease-in}
 .brf-svg{
   width:clamp(200px,42vmin,340px);
-  animation:brfFloat 3.2s ease-in-out infinite,brfGlow 2s ease-in-out infinite alternate;
+  animation:brfFloat 3.2s ease-in-out infinite, brfGlow 2s ease-in-out infinite alternate, brfShimmer 3s infinite linear;
   transform-origin: center 60%;
+  filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.5));
 }
 @keyframes brfFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-22px) rotate(2deg)}}
 @keyframes brfGlow{
   0%{filter:drop-shadow(0 0 12px rgba(255,100,200,.5)) drop-shadow(0 0 24px rgba(255,215,0,.3))}
   100%{filter:drop-shadow(0 0 36px rgba(255,100,200,.95)) drop-shadow(0 0 70px rgba(255,215,0,.85))}
+}
+@keyframes brfShimmer {
+  0% { stop-opacity: 0.8; }
+  50% { stop-opacity: 1; filter: brightness(1.2); }
+  100% { stop-opacity: 0.8; }
 }
 .brf-title{
   color:#fff;font-size:clamp(1.3rem,5vw,2.2rem);font-weight:700;
@@ -706,7 +726,12 @@ h1{
       <div class="letter">
         <div class="gift-content">
           <h2 class="gift-title">Happy Birthday Maha! 🎉🥳</h2>
-          <p class="gift-message">A special surprise just for you! 💝</p>
+          <p class="gift-message">
+            In every bloom and every light,
+            You make the world look extra bright.
+            A day for joy, a year for grace,
+            To the girl with the most beautiful face! 
+            <span class="gift-poem">Happy Birthday, MiiMii! 💝</span></p>
         </div>
       </div>
       <div class="sparkle"></div>
@@ -849,8 +874,20 @@ h1{
 <div id="bouquet-reveal">
   <div id="br-stage" style="position:absolute;inset:0;pointer-events:none"></div>
   <div class="brf" id="br-final">
+    <!-- Added a specific highlight filter to the SVG defs -->
     <svg class="brf-svg" viewBox="0 0 350 420" xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <linearGradient id="shimmerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0)">
+            <animate attributeName="offset" values="-1; 2" dur="3s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="50%" stop-color="rgba(255,255,255,0.4)">
+            <animate attributeName="offset" values="-0.5; 2.5" dur="3s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)">
+            <animate attributeName="offset" values="0; 3" dur="3s" repeatCount="indefinite" />
+          </stop>
+        </linearGradient>
         <radialGradient id="gradRose" cx="35%" cy="35%" r="65%">
           <stop offset="0%" stop-color="#ff80ab" />
           <stop offset="60%" stop-color="#e91e63" />
@@ -1131,13 +1168,13 @@ function openEnvelope() {
 setTimeout(() => {    
 bL.classList.add('hide');    
 bR.classList.add('hide');    
-wrapper.classList.add('hide');  }, 10000);
+wrapper.classList.add('hide');  }, 15000);
 
 // Hide loader overlay
-setTimeout(() => document.getElementById('loader').classList.add('hidden'), 9000);
+setTimeout(() => document.getElementById('loader').classList.add('hidden'), 16000);
 
-// Show main card (set to 9s as requested)
-setTimeout(() => document.getElementById('mainCard').classList.add('visible'), 9000);
+// Show main card
+setTimeout(() => document.getElementById('mainCard').classList.add('visible'), 16000);
 
 // Hearts burst
   setTimeout(() => {
@@ -1283,11 +1320,11 @@ function showBouquetReveal() {
     }, i * 400);
   }, 5000);
 
-  // Phase 4 – Bouquet flies away (10 s display → fade out)
+  // Phase 4 – Bouquet flies away (15 s display → fade out)
   setTimeout(() => {
     finalEl.classList.add('brf-bye');
     overlay.classList.add('br-fade');
-  }, 15000);
+  }, 20000);
 
   // Phase 5 – Main card reappears with mega-party shake
   setTimeout(() => {
@@ -1299,16 +1336,16 @@ function showBouquetReveal() {
     createExtraExtraFireworkBurst(8,'extraExtraFireworks');
     createConfetti(45);
     setTimeout(() => card.classList.remove('mega-party'), 4000);
-  }, 15600);
+  }, 20600);
 
   // Phase 6 – Clean up overlay
   setTimeout(() => {
-    overlay.classList.remove('br-show','br-fade');
-    finalEl.classList.remove('brf-show','brf-bye');
+    overlay.classList.remove('br-show', 'br-fade');
+    finalEl.classList.remove('brf-show', 'brf-bye');
     prepText.style.opacity = '';
     prepText.textContent   = '🌸 Gathering flowers for you...';
     stage.innerHTML = '';
-  }, 17000);
+  }, 22000);
 }
 
 /* ── Close modal ── */
