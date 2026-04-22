@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Happy Birthday Maha! 🎉</title>
+<!-- Import a handwritten font for extra charm -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
@@ -172,6 +174,7 @@ transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 5s ease-out;
   color: #555;
   font-style: italic;
   animation:fadeInUp .8s ease 5s forwards;
+  font-family: 'Dancing Script', cursive;
   opacity:0;
   transform:translateY(20px);
   white-space: pre-line;
@@ -189,7 +192,7 @@ transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 5s ease-out;
 .container{
   opacity:0;
   transform:translateY(50px) rotateX(90deg);
-  transition:all 2s cubic-bezier(.68,-.55,.265,1.55) 0s;
+  transition: opacity 2s ease, transform 0.1s ease-out; /* Smooth tilt, slow entry */
   text-align:center;
   background:linear-gradient(135deg,#fff8e7,#fff0f5);
   padding:clamp(.8rem,3vw,1.5rem);
@@ -200,6 +203,7 @@ transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 5s ease-out;
   backdrop-filter:blur(20px);
   border:4px solid;
   border-image:linear-gradient(45deg,#ff6b6b,#feca57,#48dbfb) 1;
+  transform-style: preserve-3d;
   position:relative;
   animation:cardFlap 2s ease-out infinite alternate;
 }
@@ -374,6 +378,7 @@ h1{
 .message{font-size:clamp(1rem,3.5vw,1.3rem);line-height:1.35;padding:0 clamp(.3rem,2vw,.6rem)}
 .highlight{
   color:#ff1744;font-weight:700;font-size:clamp(1.2rem,4vw,1.5rem);
+  font-family: 'Dancing Script', cursive;
   animation:glow 2s ease-in-out infinite alternate;
 }
 .highlight:nth-child(2){animation-delay:.5s}
@@ -512,7 +517,7 @@ h1{
 /* ── Bouquet Reveal Overlay ── */
 #bouquet-reveal{
   position:fixed;inset:0;z-index:20000;
-  background:radial-gradient(ellipse at 50% 65%,#2d0050 0%,#0e0028 55%,#000 100%);
+  background: radial-gradient(circle at center, rgba(45, 0, 80, 0.8) 0%, #000 80%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   visibility:hidden;opacity:0;transition:opacity 1s ease;overflow:hidden;
   pointer-events:none;
@@ -731,7 +736,7 @@ h1{
             You make the world look extra bright.
             A day for joy, a year for grace,
             To the girl with the most beautiful face! 
-            <span class="gift-poem">Happy Birthday, MiMi! 💝</span></p>
+            <span class="gift-poem">Happy Birthday, MiiMii! 💝</span></p>
         </div>
       </div>
       <div class="sparkle"></div>
@@ -1369,6 +1374,22 @@ function closeModal() {
   mainCard.style.pointerEvents = '';
   mainCard.classList.remove('fade-out', 'fade-in');
 }
+
+/* ── Interactive 3D Tilt Effect ── */
+document.addEventListener('mousemove', (e) => {
+  const card = document.getElementById('mainCard');
+  if (!card.classList.contains('visible') || card.classList.contains('mega-party')) return;
+  
+  const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+  const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+  card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
+
+document.addEventListener('mouseleave', () => {
+  const card = document.getElementById('mainCard');
+  card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+});
+
 </script>
 </body>
 
