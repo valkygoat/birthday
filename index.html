@@ -522,11 +522,12 @@ h1{
   opacity:0;transform:scale(.15) translateY(80px);
   transition:opacity 1.3s ease,transform 1.5s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
 }
-.brf.brf-show{opacity:1;transform:scale(1) translateY(0)}
+.brf.brf-show{opacity:1;transform:scale(1) translateY(-60px)}
 .brf.brf-bye{opacity:0;transform:scale(.85) translateY(-140px);transition:opacity 1.3s ease,transform 1.3s ease-in}
 .brf-svg{
   width:clamp(200px,42vmin,340px);
   animation:brfFloat 3.2s ease-in-out infinite,brfGlow 2s ease-in-out infinite alternate;
+  transform-origin: center 60%;
 }
 @keyframes brfFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-22px) rotate(2deg)}}
 @keyframes brfGlow{
@@ -535,7 +536,7 @@ h1{
 }
 .brf-title{
   color:#fff;font-size:clamp(1.3rem,5vw,2.2rem);font-weight:700;
-  margin-top:.9rem;letter-spacing:.5px;
+  margin-top:3rem;letter-spacing:.5px;
   animation:brfTitleGlow 2s ease-in-out infinite alternate;
 }
 @keyframes brfTitleGlow{
@@ -848,94 +849,133 @@ h1{
 <div id="bouquet-reveal">
   <div id="br-stage" style="position:absolute;inset:0;pointer-events:none"></div>
   <div class="brf" id="br-final">
-    <svg class="brf-svg" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+    <svg class="brf-svg" viewBox="0 0 350 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="gradRose" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#ff80ab" />
+          <stop offset="60%" stop-color="#e91e63" />
+          <stop offset="100%" stop-color="#880e4f" />
+        </radialGradient>
+        <radialGradient id="gradLily" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="70%" stop-color="#f8bbd0" />
+          <stop offset="100%" stop-color="#f06292" />
+        </radialGradient>
+        <radialGradient id="gradLeaf" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#81c784" />
+          <stop offset="100%" stop-color="#2e7d32" />
+        </radialGradient>
+        <filter id="flowerShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+          <feOffset dx="2" dy="4" result="offsetblur" />
+          <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+          <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <symbol id="filler" viewBox="0 0 10 10">
+          <circle cx="5" cy="5" r="1.5" fill="white" opacity="0.9" />
+          <circle cx="3" cy="3" r="1" fill="white" opacity="0.6" />
+          <circle cx="7" cy="4" r="1" fill="white" opacity="0.6" />
+        </symbol>
+      </defs>
+
       <!-- Stems -->
-      <g stroke="#2e7d32" stroke-width="3.5" fill="none" stroke-linecap="round">
-        <path d="M150 370 Q148 330 138 295 Q128 265 110 235"/>
-        <path d="M150 370 Q152 325 162 290 Q172 260 190 230"/>
-        <path d="M150 370 Q150 320 150 280 Q150 250 150 215"/>
-        <path d="M150 370 Q144 335 124 305 Q110 280 90 255"/>
-        <path d="M150 370 Q156 330 176 302 Q192 275 212 250"/>
-        <path d="M150 370 Q142 342 115 328 Q98 318 78 305"/>
-        <path d="M150 370 Q158 340 185 326 Q202 316 222 303"/>
+      <g stroke="#1b5e20" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8">
+        <path d="M175 410 Q170 340 150 240" />
+        <path d="M175 410 Q180 340 200 240" />
+        <path d="M175 410 Q175 320 175 220" />
+        <path d="M175 410 Q160 350 120 250" />
+        <path d="M175 410 Q190 350 230 250" />
       </g>
+
       <!-- Leaves -->
-      <path d="M138 315 Q112 298 110 274 Q130 278 138 298" fill="#4caf50" opacity=".9"/>
-      <path d="M162 310 Q188 293 190 269 Q170 273 162 293" fill="#4caf50" opacity=".9"/>
-      <path d="M130 345 Q104 332 102 310 Q124 314 130 335" fill="#66bb6a" opacity=".85"/>
-      <path d="M170 342 Q196 329 198 307 Q176 311 170 332" fill="#66bb6a" opacity=".85"/>
+      <g filter="url(#flowerShadow)">
+        <path d="M160 340 Q130 320 120 290 Q150 300 160 330" fill="url(#gradLeaf)" />
+        <path d="M190 335 Q220 315 230 285 Q200 295 190 325" fill="url(#gradLeaf)" />
+        <path d="M145 370 Q110 360 100 330 Q135 340 145 365" fill="#388e3c" />
+        <path d="M205 365 Q240 355 250 325 Q215 335 205 360" fill="#388e3c" />
+      </g>
+
+      <!-- Baby's Breath (Filler) -->
+      <use href="#filler" x="130" y="210" width="20" height="20" />
+      <use href="#filler" x="200" y="190" width="20" height="20" />
+      <use href="#filler" x="160" y="150" width="20" height="20" />
+      <use href="#filler" x="240" y="230" width="20" height="20" />
+      <use href="#filler" x="90" y="240" width="20" height="20" />
+
       <!-- Ribbon bow -->
-      <ellipse cx="132" cy="362" rx="22" ry="12" fill="#ff1744" opacity=".9" transform="rotate(-25,132,362)"/>
-      <ellipse cx="168" cy="362" rx="22" ry="12" fill="#ff1744" opacity=".9" transform="rotate(25,168,362)"/>
-      <circle cx="150" cy="359" r="10" fill="#ff6090"/>
-      <line x1="150" y1="365" x2="150" y2="375" stroke="#ff1744" stroke-width="3"/>
-      <!-- Center big rose – hot pink -->
-      <g transform="translate(150,185)">
-        <circle r="26" fill="#e91e63" opacity=".95"/>
-        <circle r="16" fill="#f06292"/><circle r="7" fill="#fce4ec"/>
-        <circle cx="-26" cy="0" r="13" fill="#e91e63" opacity=".75"/>
-        <circle cx="26"  cy="0" r="13" fill="#e91e63" opacity=".75"/>
-        <circle cx="0" cy="-26" r="13" fill="#e91e63" opacity=".75"/>
-        <circle cx="0"  cy="26" r="13" fill="#e91e63" opacity=".75"/>
-        <circle cx="-18" cy="-18" r="10" fill="#e91e63" opacity=".6"/>
-        <circle cx="18"  cy="-18" r="10" fill="#e91e63" opacity=".6"/>
-        <circle cx="-18" cy="18"  r="10" fill="#e91e63" opacity=".6"/>
-        <circle cx="18"  cy="18"  r="10" fill="#e91e63" opacity=".6"/>
+      <g transform="translate(175, 385)">
+        <path d="M-25,-10 Q-45,-30 -20,-35 Q0,-35 0,-10" fill="#d32f2f" />
+        <path d="M25,-10 Q45,-30 20,-35 Q0,-35 0,-10" fill="#d32f2f" />
+        <circle r="12" fill="#ff5252" />
+        <path d="M-5 10 L-15 40 L-5 35 Z" fill="#b71c1c" />
+        <path d="M5 10 L15 40 L5 35 Z" fill="#b71c1c" />
       </g>
-      <!-- Top purple -->
-      <g transform="translate(150,128)">
-        <circle r="16" fill="#9c27b0" opacity=".9"/><circle r="10" fill="#ce93d8"/><circle r="4" fill="#f3e5f5"/>
-        <circle cx="-16" cy="0" r="8" fill="#9c27b0" opacity=".7"/><circle cx="16" cy="0" r="8" fill="#9c27b0" opacity=".7"/>
-        <circle cx="0" cy="-16" r="8" fill="#9c27b0" opacity=".7"/><circle cx="0" cy="16" r="8" fill="#9c27b0" opacity=".7"/>
+
+      <!-- Realistic Rose (Center) -->
+      <g transform="translate(175,200)" filter="url(#flowerShadow)">
+        <!-- Outer Petals -->
+        <path d="M0,-40 C20,-40 40,-20 40,0 C40,20 20,40 0,40 C-20,40 -40,20 -40,0 C-40,-20 -20,-40 0,-40" fill="url(#gradRose)" />
+        <!-- Ruffled layers -->
+        <path d="M-30,-10 Q-35,-35 -10,-30 Q10,-45 30,-25 Q45,-5 25,20 Q10,40 -20,30 Q-40,15 -30,-10" fill="none" stroke="#ad1457" stroke-width="1.5" opacity="0.4" />
+        <circle r="25" fill="url(#gradRose)" opacity="0.9" />
+        <path d="M-15,-5 Q-20,-20 -5,-18 Q5,-25 18,-10 Q25,5 10,18 Q-5,25 -18,10 Q-25,-5 -15,-5" fill="#f06292" opacity="0.8" />
+        <circle r="10" fill="#ff80ab" />
+        <path d="M-5,-2 Q-8,-8 0,-7 Q8,-8 5,-2 Q8,5 0,7 Q-8,5 -5,-2" fill="#ffc1e3" />
       </g>
-      <!-- Left violet -->
-      <g transform="translate(88,163)">
-        <circle r="18" fill="#7c4dff" opacity=".9"/><circle r="11" fill="#b388ff"/><circle r="5" fill="#ede7f6"/>
-        <circle cx="-18" cy="0" r="9" fill="#7c4dff" opacity=".7"/><circle cx="18" cy="0" r="9" fill="#7c4dff" opacity=".7"/>
-        <circle cx="0" cy="-18" r="9" fill="#7c4dff" opacity=".7"/><circle cx="0" cy="18" r="9" fill="#7c4dff" opacity=".7"/>
+
+      <!-- Pink Lily (Left) -->
+      <g transform="translate(100,180)" filter="url(#flowerShadow)">
+        <g opacity="0.95">
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(0)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(72)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(144)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(216)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(288)" />
+        </g>
+        <circle r="5" fill="#fbc02d" />
       </g>
-      <!-- Right yellow -->
-      <g transform="translate(212,163)">
-        <circle r="18" fill="#fdd835" opacity=".95"/><circle r="11" fill="#fff9c4"/><circle r="5" fill="#f9a825"/>
-        <circle cx="-18" cy="0" r="9" fill="#fdd835" opacity=".7"/><circle cx="18" cy="0" r="9" fill="#fdd835" opacity=".7"/>
-        <circle cx="0" cy="-18" r="9" fill="#fdd835" opacity=".7"/><circle cx="0" cy="18" r="9" fill="#fdd835" opacity=".7"/>
+
+      <!-- Pink Lily (Right) -->
+      <g transform="translate(250,180)" filter="url(#flowerShadow)">
+        <g opacity="0.95">
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(30)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(102)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(174)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(246)" />
+          <ellipse cx="0" cy="-25" rx="12" ry="25" fill="url(#gradLily)" transform="rotate(318)" />
+        </g>
+        <circle r="5" fill="#fbc02d" />
       </g>
-      <!-- Far-left cyan -->
-      <g transform="translate(62,208)">
-        <circle r="16" fill="#00bcd4" opacity=".9"/><circle r="10" fill="#80deea"/><circle r="4" fill="#e0f7fa"/>
-        <circle cx="-16" cy="0" r="8" fill="#00bcd4" opacity=".7"/><circle cx="16" cy="0" r="8" fill="#00bcd4" opacity=".7"/>
-        <circle cx="0" cy="-16" r="8" fill="#00bcd4" opacity=".7"/><circle cx="0" cy="16" r="8" fill="#00bcd4" opacity=".7"/>
+
+      <!-- Purple Peony (Top) -->
+      <g transform="translate(175,110)" filter="url(#flowerShadow)">
+        <path d="M0,-25 C15,-25 25,-15 25,0 C25,15 15,25 0,25 C-15,25 -25,15 -25,0 C-25,-15 -15,-25 0,-25" fill="#9c27b0" />
+        <path d="M-15,-15 Q0,-30 15,-15 Q30,0 15,15 Q0,30 -15,15 Q-30,0 -15,-15" fill="#ba68c8" opacity="0.8" />
+        <circle r="8" fill="#e1bee7" />
       </g>
-      <!-- Far-right orange -->
-      <g transform="translate(238,208)">
-        <circle r="16" fill="#ff6d00" opacity=".9"/><circle r="10" fill="#ffab40"/><circle r="4" fill="#fff3e0"/>
-        <circle cx="-16" cy="0" r="8" fill="#ff6d00" opacity=".7"/><circle cx="16" cy="0" r="8" fill="#ff6d00" opacity=".7"/>
-        <circle cx="0" cy="-16" r="8" fill="#ff6d00" opacity=".7"/><circle cx="0" cy="16" r="8" fill="#ff6d00" opacity=".7"/>
+
+      <!-- Yellow Marigold (Lower Left) -->
+      <g transform="translate(110,260)" filter="url(#flowerShadow)">
+        <circle r="22" fill="#fbc02d" />
+        <g stroke="#e65100" stroke-width="0.5" opacity="0.5">
+          <circle r="18" fill="none" />
+          <circle r="14" fill="none" />
+          <circle r="10" fill="none" />
+        </g>
+        <circle r="6" fill="#fff176" />
       </g>
-      <!-- Lower-left pink -->
-      <g transform="translate(96,238)">
-        <circle r="15" fill="#ff4081" opacity=".9"/><circle r="9" fill="#ff80ab"/><circle r="4" fill="#fce4ec"/>
-        <circle cx="-15" cy="0" r="7" fill="#ff4081" opacity=".7"/><circle cx="15" cy="0" r="7" fill="#ff4081" opacity=".7"/>
-        <circle cx="0" cy="-15" r="7" fill="#ff4081" opacity=".7"/><circle cx="0" cy="15" r="7" fill="#ff4081" opacity=".7"/>
+
+      <!-- Orange Marigold (Lower Right) -->
+      <g transform="translate(240,260)" filter="url(#flowerShadow)">
+        <circle r="22" fill="#ef6c00" />
+        <g stroke="#bf360c" stroke-width="0.5" opacity="0.5">
+          <circle r="18" fill="none" />
+          <circle r="14" fill="none" />
+          <circle r="10" fill="none" />
+        </g>
+        <circle r="6" fill="#ffb74d" />
       </g>
-      <!-- Lower-right green -->
-      <g transform="translate(204,238)">
-        <circle r="15" fill="#4caf50" opacity=".9"/><circle r="9" fill="#a5d6a7"/><circle r="4" fill="#e8f5e8"/>
-        <circle cx="-15" cy="0" r="7" fill="#4caf50" opacity=".7"/><circle cx="15" cy="0" r="7" fill="#4caf50" opacity=".7"/>
-        <circle cx="0" cy="-15" r="7" fill="#4caf50" opacity=".7"/><circle cx="0" cy="15" r="7" fill="#4caf50" opacity=".7"/>
-      </g>
-      <!-- Top-left red mini -->
-      <g transform="translate(116,148)">
-        <circle r="12" fill="#ff1744" opacity=".85"/><circle r="7" fill="#ff8a80"/><circle r="3" fill="#ffebee"/>
-        <circle cx="-12" cy="0" r="6" fill="#ff1744" opacity=".7"/><circle cx="12" cy="0" r="6" fill="#ff1744" opacity=".7"/>
-        <circle cx="0" cy="-12" r="6" fill="#ff1744" opacity=".7"/><circle cx="0" cy="12" r="6" fill="#ff1744" opacity=".7"/>
-      </g>
-      <!-- Top-right teal mini -->
-      <g transform="translate(184,148)">
-        <circle r="12" fill="#00897b" opacity=".85"/><circle r="7" fill="#80cbc4"/><circle r="3" fill="#e0f2f1"/>
-        <circle cx="-12" cy="0" r="6" fill="#00897b" opacity=".7"/><circle cx="12" cy="0" r="6" fill="#00897b" opacity=".7"/>
-        <circle cx="0" cy="-12" r="6" fill="#00897b" opacity=".7"/><circle cx="0" cy="12" r="6" fill="#00897b" opacity=".7"/>
-      </g>
+
     </svg>
     <div class="brf-title">🌸 Happy Birthday Maha! 🌸</div>
     <div class="brf-sub">This bouquet is just for you 💝</div>
@@ -1243,11 +1283,11 @@ function showBouquetReveal() {
     }, i * 400);
   }, 5000);
 
-  // Phase 4 – Bouquet flies away (5 s display → fade out)
+  // Phase 4 – Bouquet flies away (10 s display → fade out)
   setTimeout(() => {
     finalEl.classList.add('brf-bye');
     overlay.classList.add('br-fade');
-  }, 10200);
+  }, 15000);
 
   // Phase 5 – Main card reappears with mega-party shake
   setTimeout(() => {
@@ -1259,7 +1299,7 @@ function showBouquetReveal() {
     createExtraExtraFireworkBurst(8,'extraExtraFireworks');
     createConfetti(45);
     setTimeout(() => card.classList.remove('mega-party'), 4000);
-  }, 10800);
+  }, 15600);
 
   // Phase 6 – Clean up overlay
   setTimeout(() => {
@@ -1268,7 +1308,7 @@ function showBouquetReveal() {
     prepText.style.opacity = '';
     prepText.textContent   = '🌸 Gathering flowers for you...';
     stage.innerHTML = '';
-  }, 12200);
+  }, 17000);
 }
 
 /* ── Close modal ── */
