@@ -1383,6 +1383,11 @@ function closeModal() {
   mainCard.style.opacity = '';
   mainCard.style.pointerEvents = '';
   mainCard.classList.remove('fade-out', 'fade-in');
+  mainCard.classList.add('visible');  // Restore mainCard visibility on manual close
+
+  // Mini celebration for smooth UX
+  createFireworkBurst(6);
+  createConfetti(15);
 }
 
 /* ── Interactive 3D Tilt Effect ── */
