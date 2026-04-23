@@ -332,18 +332,13 @@ transition:transform 5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 5s ease-out;
   border-radius: 20px;
   overflow: hidden;
   filter: drop-shadow(0 3px 8px rgba(0,0,0,0.25));
-  animation: gentleBounce 4s ease-in-out infinite;
+  animation: floatAround 6s ease-in-out infinite; /* Applied floating effect */
   transition: all .3s ease, opacity .5s ease;
 }
 .photo-teddy-inside img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-@keyframes gentleBounce {
-  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-  50% { transform: translateY(-8px) rotate(2deg) scale(1.02); }
 }
 
 
@@ -582,6 +577,15 @@ h1{
 @media(max-width:768px){
   .container{width:95vw;max-width:95vw}
   .bouquet{width:clamp(70px,14vw,120px);height:clamp(140px,28vw,260px)}
+
+  /* Adjust letter size and popup height to fit the poem content on mobile */
+  .letter {
+    width: 90%;
+    height: 115%;
+  }
+  .envelope-wrapper.open .letter {
+    transform: translateY(-130px) scale(1);
+  }
 }
 @media(min-width:1025px){
   .container{max-width:1400px;padding:clamp(  3rem,4vw,3.5rem) clamp(2.5rem,5vw,3rem)}
